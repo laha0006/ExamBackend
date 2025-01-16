@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: ExamBackend
+
+  datasource:
+    url: jdbc:mysql://localhost:13306/jpa_test
+    username: root
+    password: root
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
