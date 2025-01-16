@@ -6,6 +6,7 @@ import dev.tolana.exambackend.delivery.exception.DeliveryNotFoundException;
 import dev.tolana.exambackend.drone.Drone;
 import dev.tolana.exambackend.drone.DroneService;
 import dev.tolana.exambackend.drone.OperationStatus;
+import dev.tolana.exambackend.drone.exception.DroneNotInServiceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -84,8 +85,8 @@ public class DeliveryServiceImpl implements DeliveryService {
         if (delivery.getDrone() != null) {
             throw new RuntimeException("Drone already assigned!");
         }
-        if(drone.getStatus() != OperationStatus.IN_OPERATION) {
-            throw new RuntimeException("Drone's status is not IN_OPERATION: " + drone.getStatus().toString());
+        if(drone.getStatus() != OperationStatus.IN_SERVICE) {
+            throw new DroneNotInServiceException("Drone's status needs to be IN_SERVICE but was:  " + drone.getStatus().toString());
         }
 
         delivery.setDrone(drone);
@@ -94,6 +95,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public void finsihdelivery(long id) {
+        System.out.println("finishdelivery LOL?");
         Optional<Delivery> optionalDelivery = deliveryRepository.findById(id);
         if (optionalDelivery.isPresent()) {
             Delivery delivery = optionalDelivery.get();

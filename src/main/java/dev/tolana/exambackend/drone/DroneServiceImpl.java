@@ -23,7 +23,6 @@ public class DroneServiceImpl implements DroneService {
         return droneRepository.findAll().stream()
                 .map(droneToDtoMapper)
                 .toList();
-
     }
 
     @Override
@@ -35,7 +34,7 @@ public class DroneServiceImpl implements DroneService {
     public Drone addDrone() {
         Drone drone = Drone.builder()
                 .uuid(UUID.randomUUID().toString())
-                .status(OperationStatus.IN_OPERATION)
+                .status(OperationStatus.IN_SERVICE)
                 .station(stationService.getStationWithFewestDrones())
                 .build();
         droneRepository.save(drone);
@@ -47,7 +46,7 @@ public class DroneServiceImpl implements DroneService {
         Optional<Drone> droneOptional = droneRepository.findById(id);
         if (droneOptional.isPresent()) {
             Drone drone = droneOptional.get();
-            drone.setStatus(OperationStatus.IN_OPERATION);
+            drone.setStatus(OperationStatus.IN_SERVICE);
             droneRepository.save(drone);
             return drone;
         }
@@ -60,7 +59,7 @@ public class DroneServiceImpl implements DroneService {
         Optional<Drone> droneOptional = droneRepository.findById(id);
         if (droneOptional.isPresent()) {
             Drone drone = droneOptional.get();
-            drone.setStatus(OperationStatus.OUT_OF_OPERATION);
+            drone.setStatus(OperationStatus.OUT_OF_SERVICE);
             droneRepository.save(drone);
             return drone;
         }
@@ -72,7 +71,7 @@ public class DroneServiceImpl implements DroneService {
         Optional<Drone> droneOptional = droneRepository.findById(id);
         if (droneOptional.isPresent()) {
             Drone drone = droneOptional.get();
-            drone.setStatus(OperationStatus.PHASED_OUT);
+            drone.setStatus(OperationStatus.DECOMMISSIONED);
             droneRepository.save(drone);
             return drone;
         }

@@ -1,34 +1,42 @@
-package dev.tolana.exambackend.config;
+package dev.tolana.exambackend.drone;
 
 import dev.tolana.exambackend.delivery.Delivery;
 import dev.tolana.exambackend.delivery.DeliveryRepository;
-import dev.tolana.exambackend.drone.Drone;
-import dev.tolana.exambackend.drone.DroneRepository;
-import dev.tolana.exambackend.drone.OperationStatus;
 import dev.tolana.exambackend.pizza.Pizza;
 import dev.tolana.exambackend.pizza.PizzaRepository;
 import dev.tolana.exambackend.station.Station;
 import dev.tolana.exambackend.station.StationRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
-@Component
-@RequiredArgsConstructor
-public class InitData implements CommandLineRunner {
+import static org.junit.jupiter.api.Assertions.*;
 
-    private final DroneRepository droneRepository;
-    private final StationRepository stationRepository;
-    private final PizzaRepository pizzaRepository;
-    private final DeliveryRepository deliveryRepository;
+@DataJpaTest
+@Transactional
+class DroneRepositoryTest {
 
+    @Autowired
+    private DroneRepository droneRepository;
 
-    @Override
-    public void run(String... args) throws Exception {
-        System.out.println("#### INIT DATA ####");
+    @Autowired
+    private StationRepository stationRepository;
+
+    @Autowired
+    private PizzaRepository pizzaRepository;
+
+    @Autowired
+    private DeliveryRepository deliveryRepository;
+
+    @BeforeEach
+    void setUp() {
         Station stationOne = Station.builder()
                 .latitude(55.43)
                 .longitude(12.35)
@@ -106,17 +114,34 @@ public class InitData implements CommandLineRunner {
                 .pizza(pizzaOne)
                 .address("Home")
                 .estimatedDeliveryTime(LocalDateTime.now().plusMinutes(30))
+                .drone(droneOne)
                 .build();
 
         Delivery deliveryTwo = Delivery.builder()
                 .pizza(pizzaOne)
                 .address("Home")
                 .estimatedDeliveryTime(LocalDateTime.now().plusMinutes(35))
+                .drone(droneTwo)
                 .build();
 
         deliveryRepository.save(delivery);
         deliveryRepository.save(deliveryTwo);
-
-
     }
+
+    @Test
+    void testFindAll() {
+        List<Drone> drones = droneRepository.findAll();
+        System.out.println("######### DRONES: " + drones);
+        assertNotNull(drones);
+        assertEquals(3, drones.size());
+    }
+
+    @Test
+    void testFindDroneWithFewestDeliveries() {
+        Drone drone = droneRepository.findDroneWithFewestDeliveries();
+        assertNotNull(drone);
+        assertEquals(drone.getId(),3L); // drone one and two, is attached to a delivery, so we expected drone 3.
+    }
+
+
 }

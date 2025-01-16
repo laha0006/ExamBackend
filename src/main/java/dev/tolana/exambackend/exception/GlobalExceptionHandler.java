@@ -1,6 +1,8 @@
 package dev.tolana.exambackend.exception;
 
+import dev.tolana.exambackend.delivery.exception.DeliveryNeedsDroneToFinishException;
 import dev.tolana.exambackend.delivery.exception.DeliveryNotFoundException;
+import dev.tolana.exambackend.drone.exception.DroneNotInServiceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,6 +15,20 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> deliveryNotFound(DeliveryNotFoundException exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ErrorResponse(HttpStatus.NOT_FOUND.value(),exception.getMessage())
+        );
+    }
+
+    @ExceptionHandler(DeliveryNeedsDroneToFinishException.class)
+    public ResponseEntity<ErrorResponse> deliveryNeedsDroneToFinish(DeliveryNeedsDroneToFinishException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(),exception.getMessage())
+        );
+    }
+
+    @ExceptionHandler(DroneNotInServiceException.class)
+    public ResponseEntity<ErrorResponse> droneNotInService(DroneNotInServiceException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(),exception.getMessage())
         );
     }
 
