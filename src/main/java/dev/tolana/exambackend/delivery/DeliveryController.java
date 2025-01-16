@@ -35,8 +35,9 @@ public class DeliveryController {
         deliveryService.scheduleDelivery(scheduleRequest);
     }
 
-    @GetMapping("/deliveries/{id}/finish")
-    public void finishDelivery(@PathVariable long id) {
-        deliveryService.finsihDelivery(id);
+
+    @GetMapping("/deliveries/finish")
+    public void finishDelivery(@RequestParam long id) {
+        deliveryService.finsihdelivery(id);
     }
 }

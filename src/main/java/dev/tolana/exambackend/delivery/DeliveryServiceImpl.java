@@ -4,6 +4,7 @@ import dev.tolana.exambackend.delivery.dto.DeliveryRequest;
 import dev.tolana.exambackend.delivery.dto.ScheduleRequest;
 import dev.tolana.exambackend.drone.Drone;
 import dev.tolana.exambackend.drone.DroneService;
+import dev.tolana.exambackend.drone.OperationStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class DeliveryServiceImpl implements DeliveryService {
+
 
     private final DeliveryRepository deliveryRepository;
     private final DroneService droneService;
@@ -40,7 +42,18 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     @Override
     public void scheduleDelivery(ScheduleRequest scheduleRequest) {
-        Optional<Delivery> optionalDelivery = deliveryRepository.findById(scheduleRequest.deliveryId());
+        ScheduleOption option = scheduleRequest.option();
+        switch(option) {
+            case ScheduleOption.SMART -> scheduleDeliverySmart(scheduleRequest.deliveryId());
+            case ScheduleOption.MANUAL -> scheduleDeliveryManual(scheduleRequest.deliveryId(), scheduleRequest.droneId());
+        }
+    }
+
+    @Override
+    public void scheduleDeliverySmart(long deliveryId) {
+        System.out.println("SMART DRONE ASSIGNMENT");
+
+        Optional<Delivery> optionalDelivery = deliveryRepository.findById(deliveryId);
         if (optionalDelivery.isPresent()) {
             Delivery delivery = optionalDelivery.get();
             delivery.setDrone(droneService.getDroneWithFewestDeliveries());
@@ -49,7 +62,35 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public void finsihDelivery(long id) {
+    public void scheduleDeliveryManual(long deliveryId, long droneId) {
+        System.out.println("MANUAL DRONE ASSIGNMENT");
+
+        Optional<Delivery> optionalDelivery = deliveryRepository.findById(deliveryId);
+        Optional<Drone> optionalDrone = droneService.getDrone(droneId);
+
+        if (optionalDelivery.isEmpty()) {
+            throw new RuntimeException("Delivery does not exist");
+        }
+        if (optionalDrone.isEmpty()) {
+            throw new RuntimeException("Drone does not exist");
+        }
+
+        Delivery delivery = optionalDelivery.get();
+        Drone drone = optionalDrone.get();
+
+        if (delivery.getDrone() != null) {
+            throw new RuntimeException("Drone already assigned!");
+        }
+        if(drone.getStatus() != OperationStatus.IN_OPERATION) {
+            throw new RuntimeException("Drone's status is not IN_OPERATION: " + drone.getStatus().toString());
+        }
+
+        delivery.setDrone(drone);
+        deliveryRepository.save(delivery);
+    }
+
+    @Override
+    public void finsihdelivery(long id) {
         Optional<Delivery> optionalDelivery = deliveryRepository.findById(id);
         if (optionalDelivery.isPresent()) {
             Delivery delivery = optionalDelivery.get();

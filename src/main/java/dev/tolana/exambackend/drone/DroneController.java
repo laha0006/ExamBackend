@@ -22,18 +22,18 @@ public class DroneController {
         return droneService.getAllDrones();
     }
 
-    @GetMapping("/drones/{id}/enable")
-    public ResponseEntity<Drone> enableDrone(@PathVariable long id) {
+    @GetMapping("/drones/enable")
+    public ResponseEntity<Drone> enableDrone(@RequestParam long id) {
         return ResponseEntity.ok(droneService.enableDrone(id));
     }
 
-    @GetMapping("/drones/{id}/disable")
-    public ResponseEntity<Drone> disableDrone(@PathVariable long id) {
+    @GetMapping("/drones/disable")
+    public ResponseEntity<Drone> disableDrone(@RequestParam long id) {
         return ResponseEntity.ok(droneService.disableDrone(id));
     }
 
-    @GetMapping("/drones/{id}/retire")
-    public ResponseEntity<Drone> retireDrone(@PathVariable long id) {
+    @GetMapping("/drones/retire")
+    public ResponseEntity<Drone> retireDrone(@RequestParam long id) {
         return ResponseEntity.ok(droneService.retireDrone(id));
     }
 

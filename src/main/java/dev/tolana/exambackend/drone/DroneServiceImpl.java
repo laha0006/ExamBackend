@@ -21,6 +21,11 @@ public class DroneServiceImpl implements DroneService {
     }
 
     @Override
+    public Optional<Drone> getDrone(long id) {
+        return droneRepository.findById(id);
+    }
+
+    @Override
     public void addDrone() {
         Drone drone = Drone.builder()
                 .uuid(UUID.randomUUID().toString())

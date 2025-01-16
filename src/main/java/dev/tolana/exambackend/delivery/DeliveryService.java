@@ -14,5 +14,8 @@ public interface DeliveryService {
 
     void scheduleDelivery(ScheduleRequest scheduleRequest);
 
-    void finsihDelivery(long id);
+    void scheduleDeliverySmart(long deliveryId);
+    void scheduleDeliveryManual(long deliveryId, long droneId);
+
+    void finsihdelivery(long id);
 }
