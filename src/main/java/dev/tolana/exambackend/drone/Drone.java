@@ -22,7 +22,7 @@ public class Drone {
     private OperationStatus status;
 
     @ManyToOne
-    @JsonManagedReference
+//    @JsonManagedReference
     private Station station;
 
 

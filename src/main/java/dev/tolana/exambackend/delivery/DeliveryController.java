@@ -1,5 +1,6 @@
 package dev.tolana.exambackend.delivery;
 
+import dev.tolana.exambackend.delivery.dto.DeliveryDto;
 import dev.tolana.exambackend.delivery.dto.DeliveryRequest;
 import dev.tolana.exambackend.delivery.dto.ScheduleRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ public class DeliveryController {
     private final DeliveryService deliveryService;
 
     @GetMapping("/deliveries")
-    public ResponseEntity<List<Delivery>> getDeliveries() {
+    public ResponseEntity<List<DeliveryDto>> getDeliveries() {
         return ResponseEntity.ok(deliveryService.getAllNonDeliveredDeliveries());
     }
 
@@ -27,7 +28,7 @@ public class DeliveryController {
     }
 
     @GetMapping("/deliveries/queue")
-    public ResponseEntity<List<Delivery>> getDeliveriesQueue() {
+    public ResponseEntity<List<DeliveryDto>> getDeliveriesQueue() {
         return ResponseEntity.ok(deliveryService.getAllDeliveriesWithNoDrone());
     }
 

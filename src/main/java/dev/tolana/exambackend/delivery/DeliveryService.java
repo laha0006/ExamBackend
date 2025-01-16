@@ -1,16 +1,17 @@
 package dev.tolana.exambackend.delivery;
 
+import dev.tolana.exambackend.delivery.dto.DeliveryDto;
 import dev.tolana.exambackend.delivery.dto.DeliveryRequest;
 import dev.tolana.exambackend.delivery.dto.ScheduleRequest;
 
 import java.util.List;
 
 public interface DeliveryService {
-    List<Delivery> getAllNonDeliveredDeliveries();
+    List<DeliveryDto> getAllNonDeliveredDeliveries();
 
     Delivery addDelivery(DeliveryRequest deliveryRequest);
 
-    List<Delivery> getAllDeliveriesWithNoDrone();
+    List<DeliveryDto> getAllDeliveriesWithNoDrone();
 
     void scheduleDelivery(ScheduleRequest scheduleRequest);
 

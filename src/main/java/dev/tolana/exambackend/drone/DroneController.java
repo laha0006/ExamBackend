@@ -1,5 +1,6 @@
 package dev.tolana.exambackend.drone;
 
+import dev.tolana.exambackend.drone.dto.DroneDto;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,7 +19,7 @@ public class DroneController {
     private final DroneService droneService;
 
     @GetMapping("/drones")
-    public ResponseEntity<List<Drone>> getDrones() {
+    public ResponseEntity<List<DroneDto>> getDrones() {
         return ResponseEntity.ok(droneService.getAllDrones());
     }
 

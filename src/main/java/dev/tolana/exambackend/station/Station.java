@@ -24,6 +24,6 @@ public class Station {
     private double longitude;  // east & west
 
     @OneToMany(mappedBy = "station")
-    @JsonBackReference
+//    @JsonBackReference
     private List<Drone> drones;
 }

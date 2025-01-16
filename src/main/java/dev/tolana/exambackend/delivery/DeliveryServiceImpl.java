@@ -1,8 +1,6 @@
 package dev.tolana.exambackend.delivery;
 
-import dev.tolana.exambackend.delivery.dto.DeliveryRequest;
-import dev.tolana.exambackend.delivery.dto.DeliveryRequestMapper;
-import dev.tolana.exambackend.delivery.dto.ScheduleRequest;
+import dev.tolana.exambackend.delivery.dto.*;
 import dev.tolana.exambackend.delivery.exception.DeliveryNotFoundException;
 import dev.tolana.exambackend.drone.Drone;
 import dev.tolana.exambackend.drone.DroneService;
@@ -22,10 +20,14 @@ public class DeliveryServiceImpl implements DeliveryService {
     private final DeliveryRepository deliveryRepository;
     private final DroneService droneService;
     private final DeliveryRequestMapper deliveryRequestMapper;
+    private final DeliveryToDtoMapper deliveryToDtoMapper;
 
     @Override
-    public List<Delivery> getAllNonDeliveredDeliveries() {
-        return deliveryRepository.findByActualDeliveryTimeIsNullOrderByEstimatedDeliveryTime();
+    public List<DeliveryDto> getAllNonDeliveredDeliveries() {
+        return deliveryRepository.findByActualDeliveryTimeIsNullOrderByEstimatedDeliveryTime()
+                .stream()
+                .map(deliveryToDtoMapper)
+                .toList();
     }
 
     @Override
@@ -36,8 +38,8 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public List<Delivery> getAllDeliveriesWithNoDrone() {
-        return deliveryRepository.findByDroneIsNull();
+    public List<DeliveryDto> getAllDeliveriesWithNoDrone() {
+        return deliveryRepository.findByDroneIsNull().stream().map(deliveryToDtoMapper).toList();
     }
 
     @Override

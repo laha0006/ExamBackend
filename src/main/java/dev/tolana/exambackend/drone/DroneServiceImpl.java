@@ -1,5 +1,7 @@
 package dev.tolana.exambackend.drone;
 
+import dev.tolana.exambackend.drone.dto.DroneDto;
+import dev.tolana.exambackend.drone.dto.DroneToDtoMapper;
 import dev.tolana.exambackend.station.StationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,14 @@ public class DroneServiceImpl implements DroneService {
 
     private final DroneRepository droneRepository;
     private final StationService stationService;
+    private final DroneToDtoMapper droneToDtoMapper;
 
     @Override
-    public List<Drone> getAllDrones() {
-        return droneRepository.findAll();
+    public List<DroneDto> getAllDrones() {
+        return droneRepository.findAll().stream()
+                .map(droneToDtoMapper)
+                .toList();
+
     }
 
     @Override
