@@ -1,6 +1,7 @@
 package dev.tolana.exambackend.delivery;
 
 import dev.tolana.exambackend.delivery.dto.*;
+import dev.tolana.exambackend.delivery.exception.DeliveryNeedsDroneToFinishException;
 import dev.tolana.exambackend.delivery.exception.DeliveryNotFoundException;
 import dev.tolana.exambackend.drone.Drone;
 import dev.tolana.exambackend.drone.DroneService;
@@ -98,7 +99,7 @@ public class DeliveryServiceImpl implements DeliveryService {
             Delivery delivery = optionalDelivery.get();
             Drone drone = delivery.getDrone();
             if (drone == null) {
-                throw new RuntimeException("You cannot finish a delivery without a drone!");
+                throw new DeliveryNeedsDroneToFinishException("You cannot finish a delivery without a drone!");
             }
             System.out.println("AFTER EXCEPTION THROWN???");
             delivery.setActualDeliveryTime(LocalDateTime.now());
