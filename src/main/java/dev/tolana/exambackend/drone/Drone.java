@@ -1,5 +1,6 @@
 package dev.tolana.exambackend.drone;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.tolana.exambackend.station.Station;
 import jakarta.persistence.*;
 import lombok.*;
@@ -7,7 +8,6 @@ import org.springframework.boot.autoconfigure.web.WebProperties;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,6 +22,7 @@ public class Drone {
     private OperationStatus status;
 
     @ManyToOne
+    @JsonManagedReference
     private Station station;
 
 

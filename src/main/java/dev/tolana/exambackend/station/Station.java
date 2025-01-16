@@ -1,6 +1,7 @@
 package dev.tolana.exambackend.station;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import dev.tolana.exambackend.drone.Drone;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +10,6 @@ import java.util.List;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,5 +24,6 @@ public class Station {
     private double longitude;  // east & west
 
     @OneToMany(mappedBy = "station")
+    @JsonBackReference
     private List<Drone> drones;
 }

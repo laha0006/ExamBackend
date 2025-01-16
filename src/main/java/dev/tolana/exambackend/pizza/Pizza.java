@@ -10,7 +10,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@RequiredArgsConstructor
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
