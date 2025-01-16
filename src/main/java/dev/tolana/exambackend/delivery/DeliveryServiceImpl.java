@@ -1,7 +1,9 @@
 package dev.tolana.exambackend.delivery;
 
 import dev.tolana.exambackend.delivery.dto.DeliveryRequest;
+import dev.tolana.exambackend.delivery.dto.DeliveryRequestMapper;
 import dev.tolana.exambackend.delivery.dto.ScheduleRequest;
+import dev.tolana.exambackend.delivery.exception.DeliveryNotFoundException;
 import dev.tolana.exambackend.drone.Drone;
 import dev.tolana.exambackend.drone.DroneService;
 import dev.tolana.exambackend.drone.OperationStatus;
@@ -19,6 +21,7 @@ public class DeliveryServiceImpl implements DeliveryService {
 
     private final DeliveryRepository deliveryRepository;
     private final DroneService droneService;
+    private final DeliveryRequestMapper deliveryRequestMapper;
 
     @Override
     public List<Delivery> getAllNonDeliveredDeliveries() {
@@ -26,13 +29,10 @@ public class DeliveryServiceImpl implements DeliveryService {
     }
 
     @Override
-    public void addDelivery(DeliveryRequest deliveryRequest) {
-        Delivery delivery = Delivery.builder()
-                .estimatedDeliveryTime(LocalDateTime.now().plusMinutes(30))
-                .address(deliveryRequest.address())
-                .pizza(deliveryRequest.pizza())
-                .build();
+    public Delivery addDelivery(DeliveryRequest deliveryRequest) {
+        Delivery delivery = deliveryRequestMapper.apply(deliveryRequest);
         deliveryRepository.save(delivery);
+        return delivery;
     }
 
     @Override
@@ -69,7 +69,7 @@ public class DeliveryServiceImpl implements DeliveryService {
         Optional<Drone> optionalDrone = droneService.getDrone(droneId);
 
         if (optionalDelivery.isEmpty()) {
-            throw new RuntimeException("Delivery does not exist");
+            throw new DeliveryNotFoundException("Delivery does not exist");
         }
         if (optionalDrone.isEmpty()) {
             throw new RuntimeException("Drone does not exist");
@@ -96,9 +96,9 @@ public class DeliveryServiceImpl implements DeliveryService {
             Delivery delivery = optionalDelivery.get();
             Drone drone = delivery.getDrone();
             if (drone == null) {
-                System.out.println("WE FAILED");
-                return;
+                throw new RuntimeException("You cannot finish a delivery without a drone!");
             }
+            System.out.println("AFTER EXCEPTION THROWN???");
             delivery.setActualDeliveryTime(LocalDateTime.now());
             deliveryRepository.save(delivery);
         }

@@ -26,13 +26,14 @@ public class DroneServiceImpl implements DroneService {
     }
 
     @Override
-    public void addDrone() {
+    public Drone addDrone() {
         Drone drone = Drone.builder()
                 .uuid(UUID.randomUUID().toString())
                 .status(OperationStatus.IN_OPERATION)
                 .station(stationService.getStationWithFewestDrones())
                 .build();
         droneRepository.save(drone);
+        return drone;
     }
 
     @Override

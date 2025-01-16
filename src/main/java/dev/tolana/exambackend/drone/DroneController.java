@@ -18,8 +18,8 @@ public class DroneController {
     private final DroneService droneService;
 
     @GetMapping("/drones")
-    public List<Drone> getDrones() {
-        return droneService.getAllDrones();
+    public ResponseEntity<List<Drone>> getDrones() {
+        return ResponseEntity.ok(droneService.getAllDrones());
     }
 
     @GetMapping("/drones/enable")
@@ -38,10 +38,10 @@ public class DroneController {
     }
 
     @GetMapping("/drones/add")
-    public ResponseEntity<Object> addDrone() {
+    public ResponseEntity<Drone> addDrone() {
         System.out.println("## ADD NEW DRONE ##");
-        droneService.addDrone();
-        return ResponseEntity.ok().build();
+        Drone drone = droneService.addDrone();
+        return ResponseEntity.status(201).body(drone);
     }
 
 }

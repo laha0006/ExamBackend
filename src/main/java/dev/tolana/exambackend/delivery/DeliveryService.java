@@ -8,7 +8,7 @@ import java.util.List;
 public interface DeliveryService {
     List<Delivery> getAllNonDeliveredDeliveries();
 
-    void addDelivery(DeliveryRequest deliveryRequest);
+    Delivery addDelivery(DeliveryRequest deliveryRequest);
 
     List<Delivery> getAllDeliveriesWithNoDrone();
 

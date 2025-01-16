@@ -3,6 +3,7 @@ package dev.tolana.exambackend.delivery;
 import dev.tolana.exambackend.delivery.dto.DeliveryRequest;
 import dev.tolana.exambackend.delivery.dto.ScheduleRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,28 +17,30 @@ public class DeliveryController {
     private final DeliveryService deliveryService;
 
     @GetMapping("/deliveries")
-    public List<Delivery> getDeliveries() {
-        return deliveryService.getAllNonDeliveredDeliveries();
+    public ResponseEntity<List<Delivery>> getDeliveries() {
+        return ResponseEntity.ok(deliveryService.getAllNonDeliveredDeliveries());
     }
 
     @PostMapping("/deliveries/add")
-    public void addDelivery(@RequestBody DeliveryRequest deliveryRequest) {
-        deliveryService.addDelivery(deliveryRequest);
+    public ResponseEntity<Delivery> addDelivery(@RequestBody DeliveryRequest deliveryRequest) {
+        return ResponseEntity.status(201).body(deliveryService.addDelivery(deliveryRequest));
     }
 
     @GetMapping("/deliveries/queue")
-    public List<Delivery> getDeliveriesQueue() {
-        return deliveryService.getAllDeliveriesWithNoDrone();
+    public ResponseEntity<List<Delivery>> getDeliveriesQueue() {
+        return ResponseEntity.ok(deliveryService.getAllDeliveriesWithNoDrone());
     }
 
     @PostMapping("/deliveries/schedule")
-    public void scheduleDelivery(@RequestBody ScheduleRequest scheduleRequest) {
+    public ResponseEntity<Void> scheduleDelivery(@RequestBody ScheduleRequest scheduleRequest) {
         deliveryService.scheduleDelivery(scheduleRequest);
+        return ResponseEntity.ok().build();
     }
 
 
     @GetMapping("/deliveries/finish")
-    public void finishDelivery(@RequestParam long id) {
+    public ResponseEntity<Void> finishDelivery(@RequestParam long id) {
         deliveryService.finsihdelivery(id);
+        return ResponseEntity.ok().build();
     }
 }

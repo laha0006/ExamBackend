@@ -9,7 +9,7 @@ public interface DroneService {
 
     Optional<Drone> getDrone(long id);
 
-    void addDrone();
+    Drone addDrone();
 
     Drone enableDrone(long id);
 
