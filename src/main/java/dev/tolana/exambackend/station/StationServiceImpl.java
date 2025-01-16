@@ -1,4 +1,4 @@
 package dev.tolana.exambackend.station;
 
-public class StationServiceImpl {
+public class StationServiceImpl implements StationService {
 }
