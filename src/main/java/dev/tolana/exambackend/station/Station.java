@@ -20,8 +20,8 @@ public class Station {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private double latitude;
-    private double longitude;
+    private double latitude;   // north & south
+    private double longitude;  // east & west
 
     @OneToMany(mappedBy = "station")
     private List<Drone> drones;
