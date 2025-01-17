@@ -2,6 +2,7 @@ package dev.tolana.exambackend.drone;
 
 import dev.tolana.exambackend.drone.dto.DroneDto;
 import dev.tolana.exambackend.drone.dto.DroneToDtoMapper;
+import dev.tolana.exambackend.drone.exception.NoStationException;
 import dev.tolana.exambackend.drone.model.Drone;
 import dev.tolana.exambackend.drone.model.OperationStatus;
 import dev.tolana.exambackend.station.Station;
@@ -39,10 +40,11 @@ public class DroneServiceImpl implements DroneService {
         if (optionalStation.isEmpty()) {
             throw new NoStationException("You cannot create a drone without a station!");
         }
+        Station station = optionalStation.get();
         Drone drone = Drone.builder()
                 .uuid(UUID.randomUUID().toString())
                 .status(OperationStatus.IN_SERVICE)
-                .station()
+                .station(station)
                 .build();
         droneRepository.save(drone);
         return droneToDtoMapper.apply(drone);
