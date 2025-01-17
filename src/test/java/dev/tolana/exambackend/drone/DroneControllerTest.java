@@ -24,14 +24,14 @@ class DroneControllerTest {
     private DroneService droneService;
 
     @Test
-    void getDrones() throws Exception {
+    void testGetDrones() throws Exception {
         mockMvc.perform(get("/api/v1/drones"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.size()").value(3));
     }
 
     @Test
-    void enableDrone() throws Exception {
+    void testEnableDrone() throws Exception {
         mockMvc.perform(get("/api/v1/drones/enable?id=1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status")
@@ -40,7 +40,7 @@ class DroneControllerTest {
     }
 
     @Test
-    void disableDrone() throws Exception {
+    void testDisableDrone() throws Exception {
         mockMvc.perform(get("/api/v1/drones/disable?id=1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status")
@@ -49,7 +49,7 @@ class DroneControllerTest {
     }
 
     @Test
-    void retireDrone() throws Exception {
+    void testRetireDrone() throws Exception {
         mockMvc.perform(get("/api/v1/drones/retire?id=1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.status")
@@ -58,7 +58,7 @@ class DroneControllerTest {
     }
 
     @Test
-    void addDrone() throws Exception {
+    void testAddDrone() throws Exception {
         mockMvc.perform(get("/api/v1/drones/add"))
                 .andExpect(status().isCreated());
         mockMvc.perform(get("/api/v1/drones"))
