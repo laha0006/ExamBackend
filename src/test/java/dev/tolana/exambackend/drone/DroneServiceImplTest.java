@@ -2,22 +2,18 @@ package dev.tolana.exambackend.drone;
 
 import dev.tolana.exambackend.drone.dto.DroneDto;
 import dev.tolana.exambackend.drone.dto.DroneToDtoMapper;
+import dev.tolana.exambackend.drone.model.Drone;
+import dev.tolana.exambackend.drone.model.OperationStatus;
 import dev.tolana.exambackend.station.Station;
-import dev.tolana.exambackend.station.StationService;
 import dev.tolana.exambackend.station.dto.StationDtoWithoutDrones;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;

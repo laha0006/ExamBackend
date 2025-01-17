@@ -1,20 +1,19 @@
 package dev.tolana.exambackend.drone;
 
-import dev.tolana.exambackend.delivery.Delivery;
+import dev.tolana.exambackend.delivery.model.Delivery;
 import dev.tolana.exambackend.delivery.DeliveryRepository;
+import dev.tolana.exambackend.drone.model.Drone;
+import dev.tolana.exambackend.drone.model.OperationStatus;
 import dev.tolana.exambackend.pizza.Pizza;
 import dev.tolana.exambackend.pizza.PizzaRepository;
 import dev.tolana.exambackend.station.Station;
 import dev.tolana.exambackend.station.StationRepository;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;

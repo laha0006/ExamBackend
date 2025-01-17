@@ -1,6 +1,7 @@
 package dev.tolana.exambackend.drone;
 
 import dev.tolana.exambackend.drone.dto.DroneDto;
+import dev.tolana.exambackend.drone.model.Drone;
 
 import java.util.List;
 import java.util.Optional;

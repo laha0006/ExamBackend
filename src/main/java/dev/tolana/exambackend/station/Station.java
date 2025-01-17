@@ -1,8 +1,7 @@
 package dev.tolana.exambackend.station;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import dev.tolana.exambackend.drone.Drone;
+import dev.tolana.exambackend.drone.model.Drone;
 import jakarta.persistence.*;
 import lombok.*;
 

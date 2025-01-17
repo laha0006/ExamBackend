@@ -1,6 +1,6 @@
 package dev.tolana.exambackend.delivery.dto;
 
-import dev.tolana.exambackend.delivery.Delivery;
+import dev.tolana.exambackend.delivery.model.Delivery;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

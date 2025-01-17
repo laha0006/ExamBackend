@@ -1,10 +1,8 @@
-package dev.tolana.exambackend.drone;
+package dev.tolana.exambackend.drone.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import dev.tolana.exambackend.station.Station;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 @Getter
 @Setter

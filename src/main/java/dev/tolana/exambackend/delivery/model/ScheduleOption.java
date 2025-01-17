@@ -1,4 +1,4 @@
-package dev.tolana.exambackend.delivery;
+package dev.tolana.exambackend.delivery.model;
 
 public enum ScheduleOption {
     SMART,

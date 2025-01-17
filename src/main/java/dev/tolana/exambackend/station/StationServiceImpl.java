@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class StationServiceImpl implements StationService {
     }
 
     @Override
-    public Station getStationWithFewestDrones() {
+    public Optional<Station> getStationWithFewestDrones() {
         return stationRepository.getStationWithFewestDronesNative();
     }
 }

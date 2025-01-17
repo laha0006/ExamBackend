@@ -1,10 +1,10 @@
 package dev.tolana.exambackend.config;
 
-import dev.tolana.exambackend.delivery.Delivery;
+import dev.tolana.exambackend.delivery.model.Delivery;
 import dev.tolana.exambackend.delivery.DeliveryRepository;
-import dev.tolana.exambackend.drone.Drone;
+import dev.tolana.exambackend.drone.model.Drone;
 import dev.tolana.exambackend.drone.DroneRepository;
-import dev.tolana.exambackend.drone.OperationStatus;
+import dev.tolana.exambackend.drone.model.OperationStatus;
 import dev.tolana.exambackend.pizza.Pizza;
 import dev.tolana.exambackend.pizza.PizzaRepository;
 import dev.tolana.exambackend.station.Station;

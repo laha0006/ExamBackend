@@ -2,6 +2,9 @@ package dev.tolana.exambackend.drone;
 
 import dev.tolana.exambackend.drone.dto.DroneDto;
 import dev.tolana.exambackend.drone.dto.DroneToDtoMapper;
+import dev.tolana.exambackend.drone.model.Drone;
+import dev.tolana.exambackend.drone.model.OperationStatus;
+import dev.tolana.exambackend.station.Station;
 import dev.tolana.exambackend.station.StationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,10 +35,14 @@ public class DroneServiceImpl implements DroneService {
 
     @Override
     public DroneDto addDrone() {
+        Optional<Station> optionalStation = stationService.getStationWithFewestDrones();
+        if (optionalStation.isEmpty()) {
+            throw new NoStationException("You cannot create a drone without a station!");
+        }
         Drone drone = Drone.builder()
                 .uuid(UUID.randomUUID().toString())
                 .status(OperationStatus.IN_SERVICE)
-                .station(stationService.getStationWithFewestDrones())
+                .station()
                 .build();
         droneRepository.save(drone);
         return droneToDtoMapper.apply(drone);

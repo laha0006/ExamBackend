@@ -3,6 +3,7 @@ package dev.tolana.exambackend.delivery;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.tolana.exambackend.delivery.dto.DeliveryRequest;
 import dev.tolana.exambackend.delivery.dto.ScheduleRequest;
+import dev.tolana.exambackend.delivery.model.ScheduleOption;
 import dev.tolana.exambackend.pizza.Pizza;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

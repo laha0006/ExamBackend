@@ -5,6 +5,7 @@ import dev.tolana.exambackend.delivery.exception.DeliveryNeedsDroneToFinishExcep
 import dev.tolana.exambackend.delivery.exception.DeliveryNotFoundException;
 import dev.tolana.exambackend.drone.exception.DroneNotFoundException;
 import dev.tolana.exambackend.drone.exception.DroneNotInServiceException;
+import dev.tolana.exambackend.drone.exception.NoStationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -43,6 +44,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DeliveryDroneAlreadyAssignedException.class)
     public ResponseEntity<ErrorResponse> deliveryDroneAlreadyAssigned(DeliveryDroneAlreadyAssignedException exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorResponse(HttpStatus.BAD_REQUEST.value(),exception.getMessage())
+        );
+    }
+
+    @ExceptionHandler(NoStationException.class)
+    public ResponseEntity<ErrorResponse> noStation(NoStationException exception) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ErrorResponse(HttpStatus.BAD_REQUEST.value(),exception.getMessage())
         );

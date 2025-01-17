@@ -1,7 +1,6 @@
 package dev.tolana.exambackend.drone.dto;
 
-import dev.tolana.exambackend.drone.Drone;
-import dev.tolana.exambackend.station.dto.StationToDtoMapper;
+import dev.tolana.exambackend.drone.model.Drone;
 import dev.tolana.exambackend.station.dto.StationToDtoWithoutDronesMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

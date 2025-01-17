@@ -1,5 +1,6 @@
 package dev.tolana.exambackend.drone;
 
+import dev.tolana.exambackend.drone.model.OperationStatus;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;

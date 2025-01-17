@@ -3,6 +3,7 @@ package dev.tolana.exambackend.delivery;
 import dev.tolana.exambackend.delivery.dto.DeliveryDto;
 import dev.tolana.exambackend.delivery.dto.DeliveryRequest;
 import dev.tolana.exambackend.delivery.dto.ScheduleRequest;
+import dev.tolana.exambackend.delivery.model.Delivery;
 
 import java.util.List;
 

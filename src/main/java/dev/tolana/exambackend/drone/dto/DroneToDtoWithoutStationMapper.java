@@ -1,6 +1,6 @@
 package dev.tolana.exambackend.drone.dto;
 
-import dev.tolana.exambackend.drone.Drone;
+import dev.tolana.exambackend.drone.model.Drone;
 import org.springframework.stereotype.Component;
 
 import java.util.function.Function;

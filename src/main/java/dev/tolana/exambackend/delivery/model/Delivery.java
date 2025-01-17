@@ -1,7 +1,7 @@
-package dev.tolana.exambackend.delivery;
+package dev.tolana.exambackend.delivery.model;
 
 
-import dev.tolana.exambackend.drone.Drone;
+import dev.tolana.exambackend.drone.model.Drone;
 import dev.tolana.exambackend.pizza.Pizza;
 import jakarta.persistence.*;
 import lombok.*;

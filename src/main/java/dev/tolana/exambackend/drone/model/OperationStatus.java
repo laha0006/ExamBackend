@@ -1,4 +1,4 @@
-package dev.tolana.exambackend.drone;
+package dev.tolana.exambackend.drone.model;
 
 public enum OperationStatus {
     IN_SERVICE,
