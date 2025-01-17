@@ -112,6 +112,7 @@ public class InitData implements CommandLineRunner {
                 .pizza(pizzaOne)
                 .address("Home")
                 .estimatedDeliveryTime(LocalDateTime.now().plusMinutes(35))
+                .drone(droneTwo)
                 .build();
 
         deliveryRepository.save(delivery);

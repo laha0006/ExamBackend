@@ -24,25 +24,25 @@ public class DroneController {
     }
 
     @GetMapping("/drones/enable")
-    public ResponseEntity<Drone> enableDrone(@RequestParam long id) {
+    public ResponseEntity<DroneDto> enableDrone(@RequestParam long id) {
         return ResponseEntity.ok(droneService.enableDrone(id));
     }
 
     @GetMapping("/drones/disable")
-    public ResponseEntity<Drone> disableDrone(@RequestParam long id) {
+    public ResponseEntity<DroneDto> disableDrone(@RequestParam long id) {
         return ResponseEntity.ok(droneService.disableDrone(id));
     }
 
     @GetMapping("/drones/retire")
-    public ResponseEntity<Drone> retireDrone(@RequestParam long id) {
+    public ResponseEntity<DroneDto> retireDrone(@RequestParam long id) {
         return ResponseEntity.ok(droneService.retireDrone(id));
     }
 
     @GetMapping("/drones/add")
-    public ResponseEntity<Drone> addDrone() {
+    public ResponseEntity<DroneDto> addDrone() {
         System.out.println("## ADD NEW DRONE ##");
-        Drone drone = droneService.addDrone();
-        return ResponseEntity.status(201).body(drone);
+        DroneDto droneDto = droneService.addDrone();
+        return ResponseEntity.status(201).body(droneDto);
     }
 
 }

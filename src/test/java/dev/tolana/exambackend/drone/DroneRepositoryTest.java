@@ -6,11 +6,14 @@ import dev.tolana.exambackend.pizza.Pizza;
 import dev.tolana.exambackend.pizza.PizzaRepository;
 import dev.tolana.exambackend.station.Station;
 import dev.tolana.exambackend.station.StationRepository;
+import jakarta.persistence.EntityManager;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
@@ -20,7 +23,6 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-@Transactional
 class DroneRepositoryTest {
 
     @Autowired
@@ -35,8 +37,22 @@ class DroneRepositoryTest {
     @Autowired
     private DeliveryRepository deliveryRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
     @BeforeEach
     void setUp() {
+
+        // Clear and flush the persistence context before each test
+        entityManager.flush();  // Ensure all changes are persisted
+        entityManager.clear();  // Clear the persistence context so it's empty for the next test
+
+        // Delete all entities in a batch for more efficiency
+        droneRepository.deleteAllInBatch();
+        stationRepository.deleteAllInBatch();
+        pizzaRepository.deleteAllInBatch();
+        deliveryRepository.deleteAllInBatch();
+
         Station stationOne = Station.builder()
                 .latitude(55.43)
                 .longitude(12.35)
@@ -129,6 +145,7 @@ class DroneRepositoryTest {
     }
 
     @Test
+    @DirtiesContext
     void testFindAll() {
         List<Drone> drones = droneRepository.findAll();
         System.out.println("######### DRONES: " + drones);
@@ -137,10 +154,12 @@ class DroneRepositoryTest {
     }
 
     @Test
+    @DirtiesContext
     void testFindDroneWithFewestDeliveries() {
         Drone drone = droneRepository.findDroneWithFewestDeliveries();
+        System.out.println("THE DRONE: " + drone.toString());
         assertNotNull(drone);
-        assertEquals(drone.getId(),3L); // drone one and two, is attached to a delivery, so we expected drone 3.
+        assertEquals(3L, drone.getId()); // drone one and two, is attached to a delivery, so we expected drone 3.
     }
 
 

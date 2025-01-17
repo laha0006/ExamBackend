@@ -11,13 +11,13 @@ public interface DroneService {
 
     Optional<Drone> getDrone(long id);
 
-    Drone addDrone();
+    DroneDto addDrone();
 
-    Drone enableDrone(long id);
+    DroneDto enableDrone(long id);
 
-    Drone disableDrone(long id);
+    DroneDto disableDrone(long id);
 
-    Drone retireDrone(long id);
+    DroneDto retireDrone(long id);
 
     Drone getDroneWithFewestDeliveries();
 }

@@ -31,49 +31,49 @@ public class DroneServiceImpl implements DroneService {
     }
 
     @Override
-    public Drone addDrone() {
+    public DroneDto addDrone() {
         Drone drone = Drone.builder()
                 .uuid(UUID.randomUUID().toString())
                 .status(OperationStatus.IN_SERVICE)
                 .station(stationService.getStationWithFewestDrones())
                 .build();
         droneRepository.save(drone);
-        return drone;
+        return droneToDtoMapper.apply(drone);
     }
 
     @Override
-    public Drone enableDrone(long id) {
+    public DroneDto enableDrone(long id) {
         Optional<Drone> droneOptional = droneRepository.findById(id);
         if (droneOptional.isPresent()) {
             Drone drone = droneOptional.get();
             drone.setStatus(OperationStatus.IN_SERVICE);
             droneRepository.save(drone);
-            return drone;
+            return droneToDtoMapper.apply(drone);
         }
         return null;
 
     }
 
     @Override
-    public Drone disableDrone(long id) {
+    public DroneDto disableDrone(long id) {
         Optional<Drone> droneOptional = droneRepository.findById(id);
         if (droneOptional.isPresent()) {
             Drone drone = droneOptional.get();
             drone.setStatus(OperationStatus.OUT_OF_SERVICE);
             droneRepository.save(drone);
-            return drone;
+            return droneToDtoMapper.apply(drone);
         }
         return null;
     }
 
     @Override
-    public Drone retireDrone(long id) {
+    public DroneDto retireDrone(long id) {
         Optional<Drone> droneOptional = droneRepository.findById(id);
         if (droneOptional.isPresent()) {
             Drone drone = droneOptional.get();
             drone.setStatus(OperationStatus.DECOMMISSIONED);
             droneRepository.save(drone);
-            return drone;
+            return droneToDtoMapper.apply(drone);
         }
         return null;
     }
