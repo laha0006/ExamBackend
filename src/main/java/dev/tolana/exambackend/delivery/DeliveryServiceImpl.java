@@ -1,11 +1,13 @@
 package dev.tolana.exambackend.delivery;
 
 import dev.tolana.exambackend.delivery.dto.*;
+import dev.tolana.exambackend.delivery.exception.DeliveryDroneAlreadyAssignedException;
 import dev.tolana.exambackend.delivery.exception.DeliveryNeedsDroneToFinishException;
 import dev.tolana.exambackend.delivery.exception.DeliveryNotFoundException;
 import dev.tolana.exambackend.drone.Drone;
 import dev.tolana.exambackend.drone.DroneService;
 import dev.tolana.exambackend.drone.OperationStatus;
+import dev.tolana.exambackend.drone.exception.DroneNotFoundException;
 import dev.tolana.exambackend.drone.exception.DroneNotInServiceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -76,14 +78,14 @@ public class DeliveryServiceImpl implements DeliveryService {
             throw new DeliveryNotFoundException("Delivery does not exist");
         }
         if (optionalDrone.isEmpty()) {
-            throw new RuntimeException("Drone does not exist");
+            throw new DroneNotFoundException("Drone does not exist");
         }
 
         Delivery delivery = optionalDelivery.get();
         Drone drone = optionalDrone.get();
 
         if (delivery.getDrone() != null) {
-            throw new RuntimeException("Drone already assigned!");
+            throw new DeliveryDroneAlreadyAssignedException("Drone already assigned!");
         }
         if(drone.getStatus() != OperationStatus.IN_SERVICE) {
             throw new DroneNotInServiceException("Drone's status needs to be IN_SERVICE but was:  " + drone.getStatus().toString());
@@ -107,5 +109,12 @@ public class DeliveryServiceImpl implements DeliveryService {
             delivery.setActualDeliveryTime(LocalDateTime.now());
             deliveryRepository.save(delivery);
         }
+    }
+
+    @Override
+    public List<DeliveryDto> getAllCompletedDeliveries() {
+        return deliveryRepository.findByActualDeliveryTimeIsNotNullOrderByActualDeliveryTime()
+                .stream()
+                .map(deliveryToDtoMapper).toList();
     }
 }

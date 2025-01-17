@@ -23,6 +23,7 @@ public class DroneController {
         return ResponseEntity.ok(droneService.getAllDrones());
     }
 
+
     @GetMapping("/drones/enable")
     public ResponseEntity<DroneDto> enableDrone(@RequestParam long id) {
         return ResponseEntity.ok(droneService.enableDrone(id));

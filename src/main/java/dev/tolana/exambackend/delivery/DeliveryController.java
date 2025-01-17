@@ -22,6 +22,11 @@ public class DeliveryController {
         return ResponseEntity.ok(deliveryService.getAllNonDeliveredDeliveries());
     }
 
+    @GetMapping("/deliveries/completed")
+    public ResponseEntity<List<DeliveryDto>> getDeliveriesCompleted() {
+        return ResponseEntity.ok(deliveryService.getAllCompletedDeliveries());
+    }
+
     @PostMapping("/deliveries/add")
     public ResponseEntity<Delivery> addDelivery(@RequestBody DeliveryRequest deliveryRequest) {
         return ResponseEntity.status(201).body(deliveryService.addDelivery(deliveryRequest));

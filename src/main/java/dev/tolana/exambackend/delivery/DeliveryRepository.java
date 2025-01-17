@@ -8,4 +8,5 @@ public interface DeliveryRepository extends JpaRepository<Delivery, Long> {
 
     List<Delivery> findByActualDeliveryTimeIsNullOrderByEstimatedDeliveryTime();
     List<Delivery> findByDroneIsNull();
+    List<Delivery> findByActualDeliveryTimeIsNotNullOrderByActualDeliveryTime();
 }

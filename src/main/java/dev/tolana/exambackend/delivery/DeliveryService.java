@@ -19,4 +19,6 @@ public interface DeliveryService {
     void scheduleDeliveryManual(long deliveryId, long droneId);
 
     void finsihdelivery(long id);
+
+    List<DeliveryDto> getAllCompletedDeliveries();
 }
