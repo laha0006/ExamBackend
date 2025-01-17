@@ -96,11 +96,17 @@ public class InitData implements CommandLineRunner {
                 .title("Meat Lover")
                 .build();
 
+        Pizza pizzaFive = Pizza.builder()
+                .price(78)
+                .title("Kebab Pizza")
+                .build();
+
 
         pizzaRepository.save(pizzaOne);
         pizzaRepository.save(pizzaTwo);
         pizzaRepository.save(pizzaThree);
         pizzaRepository.save(pizzaFour);
+        pizzaRepository.save(pizzaFive);
 
         Delivery delivery = Delivery.builder()
                 .pizza(pizzaOne)

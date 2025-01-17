@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DroneRepository extends JpaRepository<Drone, Long> {
-    @Query(value = "SELECT d.*, COUNT(dl.id) FROM drone d LEFT JOIN delivery dl ON d.id = dl.drone_id WHERE d.station_id != 2 GROUP BY d.id ORDER BY COUNT(dl.id) LIMIT 1", nativeQuery = true)
+    @Query(value = "SELECT d.*, COUNT(dl.id) FROM drone d LEFT JOIN delivery dl ON d.id = dl.drone_id WHERE d.status = 0 GROUP BY d.id ORDER BY COUNT(dl.id) LIMIT 1", nativeQuery = true)
     Drone findDroneWithFewestDeliveries();
 }
